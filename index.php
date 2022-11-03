@@ -1,4 +1,4 @@
-<?php include_once(__DIR__ . '/App/start.php'); ?>
+<?php include_once(__DIR__ . '/app/start.php'); ?>
 <h2>References</h2>
 <p>Input page for every entity / relationship and the respective reference</p>
 <table>
