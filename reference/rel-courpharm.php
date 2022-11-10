@@ -1,11 +1,19 @@
 <?php
-    $conn = require(__DIR__ . '/../app/start_connect.php');
+
+    include_once(__DIR__ . '/../app/start.php');
+        
+    $conn = require(__DIR__ . '/../app/connect.php');
+    if ($conn === false) {
+        echo '<p class="error">Error connecting to the SQL Database!</p>';
+        include_once(__DIR__ . '/../app/end.php');
+        exit();
+    }
 
     $sql = "
         SELECT
             U.firstname, U.lastname, P.name
-        FROM Users U, Couriers C, Pharmacies P, Rcourpharm R
-        WHERE U.uid = C.uid AND C.courid = R.courid AND R.pharmid = P.pharmid
+        FROM Users U, Courier C, Pharmacy P, DeliversFrom D
+        WHERE U.uid = C.uid AND C.cid = D.id AND D.id = D.id
         ORDER BY U.uid
     ";
     $result = $conn->query($sql);

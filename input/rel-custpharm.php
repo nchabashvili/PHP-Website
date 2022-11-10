@@ -1,31 +1,37 @@
 <?php
-    $conn = require(__DIR__ . '/../app/start_connect.php');
-
+    include_once(__DIR__ . '/../app/start.php');
+        
+    $conn = require(__DIR__ . '/../app/connect.php');
+    if ($conn === false) {
+        echo '<p class="error">Error connecting to the SQL Database!</p>';
+        include_once(__DIR__ . '/../app/end.php');
+        exit();
+}
     $pharmacies = $conn->query("SELECT * FROM Pharmacies");
-    $customer = $conn->query("SELECT U.firstname, U.lastname, U.email, C.custid FROM Users U, customer C WHERE U.uid = C.uid ORDER BY U.uid");
+    $customer = $conn->query("SELECT D.name, D.price ,D.did FROM drug D ORDER BY D.did");
 ?>
-<h2>Insert a new customer-pharmacy Relationship</h2>
-<p>Create a new "customer-pharmacy" relationship between a "Customers" entity and a "Pharmacies" entity.</p>
+<h2>Insert a new drug-pharmacy Relationship</h2>
+<p>Create a new "drug-pharmacy" relationship between a "Drug" entity and a "Pharmacy" entity.</p>
 <p>References: 
-    <a href="<?=ROOT?>reference/customer.php" class="reference">Customers</a>
+    <a href="<?=ROOT?>reference/drugs.php" class="reference">Drugs</a>
     <a href="<?=ROOT?>reference/pharmacies.php" class="reference">Pharmacies</a>
 </p>
 <form method='POST' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    <label for="custid">customer:</label>
-    <select name="custid" id="custid">
+    <label for="did">drug:</label>
+    <select name="did" id="did">
         <?php
-            while ($row = $customer->fetch_assoc()) {
-                echo "<option value='$row[custid]'>$row[firstname] $row[lastname]</option>";
+            while ($row = $drug->fetch_assoc()) {
+                echo "<option value='$row[did]'>$row[name] $row[prices]</option>";
             }
         ?>
     </select>
     <span class="must">*</span>
 
-    <label for="pharmaid">Course:</label>
-    <select name="pharmaid" id="pharmaid">
+    <label for="pid">Pharmacy:</label>
+    <select name="pid" id="pid">
         <?php
-            while ($row = $courses->fetch_assoc()) {
-                echo "<option value='$row[pharmaid]'>$row[name]</option>";
+            while ($row = $pharmacies->fetch_assoc()) {
+                echo "<option value='$row[pid]'>$row[name]</option>";
             }
         ?>
     </select>
@@ -46,10 +52,10 @@
         exit();
     }
 
-    $pharmaid = mysqli_real_escape_string($conn, $_POST['pharmaid']);
-    $custid = mysqli_real_escape_string($conn, $_POST['custid']);
+    $pid = mysqli_real_escape_string($conn, $_POST['pid']);
+    $did = mysqli_real_escape_string($conn, $_POST['did']);
         
-    $sql = "INSERT INTO Teaches (custid, pharmaid) VALUES ('$custid', '$pharmaid')";
+    $sql = "INSERT INTO Teaches (did, pid) VALUES ('$did', '$pid')";
     // Output the rest of the page and be done with this script
     if (!$conn->query($sql)) {
         echo "Insert error: " . mysqli_error($conn);

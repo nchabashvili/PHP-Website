@@ -1,7 +1,14 @@
 <?php
 
-$conn = require(__DIR__ . '/../app/start_connect.php');
-
+include_once(__DIR__ . '/../app/start.php');
+    
+    $conn = require(__DIR__ . '/../app/connect-readonly.php');
+    if ($conn === false) {
+        echo '<p class="error">Error connecting to the SQL Database!</p>';
+        include_once(__DIR__ . '/../app/end.php');
+        exit();
+    }
+    
 $where = "U.uid = C.uid";
 $fields = [
     'firstname',

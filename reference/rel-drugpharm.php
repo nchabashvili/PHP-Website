@@ -1,12 +1,18 @@
 <?php
-    $conn = require(__DIR__ . '/../app/start_connect.php');
-
+    include_once(__DIR__ . '/../app/start.php');
+        
+    $conn = require(__DIR__ . '/../app/connect.php');
+    if ($conn === false) {
+        echo '<p class="error">Error connecting to the SQL Database!</p>';
+        include_once(__DIR__ . '/../app/end.php');
+        exit();
+    }
     $sql = "
         SELECT
-            U.firstname, U.lastname, P.name
-        FROM Users U, Customers C, Pharmacies P, Rcourpharm R
-        WHERE U.uid = C.uid AND C.custid = R.custid AND R.pharmid = P.pharmid
-        ORDER BY U.uid
+            D.name, D.price, P.name
+        FROM Drug D, Pharmacy P, HasInStock H
+        WHERE D.did = H.pid AND H.pid = P.pid
+        ORDER BY D.did
     ";
     $result = $conn->query($sql);
     if (!$result) {
@@ -18,11 +24,11 @@
 
     if ($result->num_rows > 0) { 
 ?>
-    <h2>Customers-Pharmacies relationship (Customers -> Pharmacies)</h2>
+    <h2>drug-pharmacy relationship (Drugs -> Pharmacies)</h2>
     <table>
         <thead>
             <tr style='text-align: center;'>
-                <th>Customers</th>
+                <th>Drugs</th>
                 <th>Pharmacies</th>
             </tr>
         </thead>
@@ -31,7 +37,7 @@
             while ($row = $result->fetch_assoc()) {
         ?>
             <tr>
-                <td><?=$row['firstname']?> <?=$row['lastname']?></td>
+                <td><?=$row['name']?> <?=$row['price']?></td>
                 <td><?=$row['name']?></td>
             </tr>
         <?php } ?>

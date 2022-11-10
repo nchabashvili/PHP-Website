@@ -1,5 +1,12 @@
 <?php
-    $conn = require(__DIR__ . '/../app/start_connect.php');
+    include_once(__DIR__ . '/../app/start.php');
+    
+    $conn = require(__DIR__ . '/../app/connect.php');
+    if ($conn === false) {
+        echo '<p class="error">Error connecting to the SQL Database!</p>';
+        include_once(__DIR__ . '/../app/end.php');
+        exit();
+    }
 ?>
 <h2>Insert a new Pharmacy</h2>
 <a href="<?=ROOT?>reference/pharmacies.php" class="reference">Reference</a>
@@ -7,11 +14,22 @@
     <label for="name">name:</label>
     <input type="text" name="name" required/><span class="must">*</span>
     <br/>
-    <br/>
+    
     <label for="address">address:</label>
     <input type="text" name="address" required/><span class="must">*</span>
     <br/>
-    </br>
+    
+    <label for="username">Username:</label>
+    <input type="text" name="username" required></input>
+    <span class="must">*</span>
+    <br/>
+    
+    <label for="password">Password:</label>
+    <input type="password" name="password" required></input>
+    <span class="must">*</span>
+    <br/>
+    <br/>
+
     <button type="submit">
         Add
     </button>
@@ -30,6 +48,12 @@
         include_once(__DIR__ . '/../app/end.php');
         exit();
     }
+  
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    include_once(__DIR__ . '/../app/auth.php');
+    passAuth($username, $password, $conn);
 
     $sname = mysqli_real_escape_string($conn, $_POST['name']);
     $saddress = mysqli_real_escape_string($conn, $_POST['address']);

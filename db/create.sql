@@ -7,6 +7,15 @@ CREATE TABLE Users(
     PRIMARY KEY(uid)
 );
 
+CREATE TABLE Admins(
+    aid INT NOT NULL AUTO_INCREMENT,
+    
+    username VARCHAR(255) NOT NULL,
+    pass VARCHAR(255) NOT NULL,
+
+    PRIMARY KEY(aid)
+);
+
 CREATE TABLE Customer(
     uid INT NOT NULL,
     cid INT NOT NULL AUTO_INCREMENT,

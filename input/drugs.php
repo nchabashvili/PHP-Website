@@ -1,17 +1,39 @@
 <?php
-    $conn = require(__DIR__ . '/../app/start_connect.php');
+    include_once(__DIR__ . '/../app/start.php');
+        
+    $conn = require(__DIR__ . '/../app/connect.php');
+    if ($conn === false) {
+        echo '<p class="error">Error connecting to the SQL Database!</p>';
+        include_once(__DIR__ . '/../app/end.php');
+        exit();
+    }
 ?>
 <h2>Insert new drug</h2>
 <a href="<?=ROOT?>reference/drugs.php" class="reference">Reference</a>
 <form method='POST' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <label for="name">name:</label>
     <input type="text" name="name" required/><span class="must">*</span>
+
     <br/>
-    <br/>
+    
+
     <label for="price">price:</label>
     <input type="number" name="price" required/><span class="must">*</span>
+
     <br/>
-    </br>
+    
+
+    <label for="username">Username:</label>
+    <input type="text" name="username" required></input>
+    <span class="must">*</span>
+    
+    <label for="password">Password:</label>
+    <input type="password" name="password" required></input>
+    <span class="must">*</span>
+    
+    <br/>
+    <br/>
+
     <button type="submit">
         Add
     </button>

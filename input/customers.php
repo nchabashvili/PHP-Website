@@ -1,5 +1,12 @@
 <?php
-    $conn = require(__DIR__ . '/../app/start_connect.php');
+    include_once(__DIR__ . '/../app/start.php');
+    
+    $conn = require(__DIR__ . '/../app/connect.php');
+    if ($conn === false) {
+        echo '<p class="error">Error connecting to the SQL Database!</p>';
+        include_once(__DIR__ . '/../app/end.php');
+        exit();
+    }
 
     $users = $conn->query("SELECT * FROM Users ORDER BY uid");
 ?>
@@ -20,6 +27,20 @@
     <input type="number" name="profid" id="profid" required/><span class="must">*</span>
     <br/>
 
+    <label for="username">Username:</label>
+    <input type="text" name="username" required></input>
+    <span class="must">*</span>
+    
+    <label for="password">Password:</label>
+    <input type="password" name="password" required></input>
+    <span class="must">*</span>
+    <br/>
+    <br/>
+
+    <button type="submit">
+        Add
+    </button>
+
 </form>
 </br>
 </br>
@@ -34,6 +55,13 @@
         exit();
     }
 
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    include_once(__DIR__ . '/../app/auth.php');
+    passAuth($username, $password, $conn);
+
+    
     $uid = mysqli_real_escape_string($conn, $_POST['uid']);
     $profid = mysqli_real_escape_string($conn, $_POST['profid']);
     
