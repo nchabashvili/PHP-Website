@@ -25,7 +25,7 @@
             while ($row = $result->fetch_assoc()) {
         ?>
             <tr>
-                <td><?=$row['id']?></td>
+                <td><?=$row['aid']?></td>
                 <td><?=$row['username']?></td>
             </tr>
         <?php } ?>
