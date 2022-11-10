@@ -1,5 +1,5 @@
 <?php
-	define('ROOT', '/DBWS_group-28/Assignment_8/');
+	define('ROOT', '/dachi/');
 	ini_set('error_reporting', E_ALL);
 ?>
 <!DOCTYPE html>
