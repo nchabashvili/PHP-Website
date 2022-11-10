@@ -35,7 +35,7 @@ include_once(__DIR__ . '/../app/start_connect.php');
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
         
-    $sql = "INSERT INTO Admins (username, password) VALUES ('$username', '$password')";
+    $sql = "INSERT INTO Admins (username, pass) VALUES ('$username', '$password')";
     if (!$conn->query($sql)) {
         echo "Insert error: " . mysqli_error($conn);
         mysqli_close($conn);
