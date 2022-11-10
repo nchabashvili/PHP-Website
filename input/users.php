@@ -1,12 +1,6 @@
 <?php
-include_once(__DIR__ . '/../app/start.php');
-    
-$conn = require(__DIR__ . '/../app/connect.php');
-if ($conn === false) {
-    echo '<p class="error">Error connecting to the SQL Database!</p>';
-    include_once(__DIR__ . '/../app/end.php');
-    exit();
-}?>
+include_once(__DIR__ . '/../app/start_connect.php');
+?>
 <h2>Insert a new User</h2>
 <a href="<?=ROOT?>reference/customer.php" class="reference">Reference</a>
 <form method='POST' action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">

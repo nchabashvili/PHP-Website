@@ -1,12 +1,5 @@
 <?php
-    include_once(__DIR__ . '/../app/start.php');
-    
-    $conn = require(__DIR__ . '/../app/connect.php');
-    if ($conn === false) {
-        echo '<p class="error">Error connecting to the SQL Database!</p>';
-        include_once(__DIR__ . '/../app/end.php');
-        exit();
-    }
+    include_once(__DIR__ . '/../app/start_connect.php');
     
     $sql = "SELECT U.firstname, U.lastname, U.email, C.cid FROM Users U, Customer C WHERE U.uid = C.uid ORDER BY U.uid";
 

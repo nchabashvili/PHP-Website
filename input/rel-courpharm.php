@@ -1,12 +1,5 @@
 <?php
-    include_once(__DIR__ . '/../app/start.php');
-    
-    $conn = require(__DIR__ . '/../app/connect.php');
-    if ($conn === false) {
-        echo '<p class="error">Error connecting to the SQL Database!</p>';
-        include_once(__DIR__ . '/../app/end.php');
-        exit();
-    }
+    include_once(__DIR__ . '/../app/start_connect.php');
 
     $pharmacies = $conn->query("SELECT * FROM Pharmacy");
     $couriers = $conn->query("SELECT U.firstname, U.lastname, U.email, C.courid FROM Users U, Courier C WHERE U.uid = C.uid ORDER BY U.uid");
