@@ -46,6 +46,8 @@ CREATE TABLE Courier(
     FOREIGN KEY(uid) REFERENCES Users(uid)
 );
 
+
+
 -- List of existing drugs
 CREATE TABLE Drug(
     did INT NOT NULL AUTO_INCREMENT,

@@ -4,7 +4,8 @@
 	</a>
 	<div id="links">
 		<a href="<?=ROOT?>">References</a>
-		<a href="<?=ROOT?>search">SEARCH</a>
+		<a href="<?=ROOT?>search">Search</a>
+		<a href="<?=ROOT?>auto_comp/demo.php">Autocomplete Demo</a>
 		<a href="<?=ROOT?>imprint.php">Imprint</a>
 	</div>
 </header>
