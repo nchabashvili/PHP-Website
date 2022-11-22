@@ -70,7 +70,7 @@
             if($autocompleteresult->num_rows > 0) {
                 while($autocompleterow = $autocompleteresult->fetch_assoc()) {
                 ?>
-                "<?=$autocompleterow[name]?>" ,
+                "<?=$autocompleterow['name']?>" ,
                 <?php
                 }
             }
