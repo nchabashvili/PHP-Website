@@ -1,7 +1,7 @@
 # Medicine Delivery Website (for fun)
 
 
-http://167.172.97.242/dachi/
+http://167.172.97.242/
 
 ## Description
 
